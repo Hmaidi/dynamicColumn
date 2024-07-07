@@ -1,0 +1,75 @@
+<div class="NgxEditor__Wrapper">
+  <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+  <ngx-editor [editor]="editor" [ngModel]="contentCell"
+              (ngModelChange)="updateHeaderFromContentCell($event)"
+              [disabled]="false" [placeholder]="'Type here...'"></ngx-editor>
+</div>
+
+<p-table [value]="tableData">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width:60px">#</th> <!-- Add this line for the row index header -->
+      <th *ngFor="let col of columns; let i = index">
+        <ng-container *ngIf="!col.editing">
+          <span class="addClass" (click)="toggleOverlay($event, op)">
+            {{ col.header }}
+            <i class="pi pi-ellipsis-v" style="font-size: 1rem"></i>
+          </span>
+          <p-overlayPanel #op>
+            <div class="flex flex-column gap-3 w-10rem" style="padding:20px">
+              <a class="p-ripple p-element flex align-items-center p-menuitem-link" (click)="deplicateHeader(i)">Duplicate</a>
+              <a class="p-ripple p-element flex align-items-center p-menuitem-link" (click)="deleteHeader(i)">Delete</a>
+              <a class="p-ripple p-element flex align-items-center p-menuitem-link" (click)="updateHeader(i)">Update</a>
+              <a class="p-ripple p-element flex align-items-center p-menuitem-link" (click)="renameHeader(i)">Rename</a>
+            </div>
+          </p-overlayPanel>
+        </ng-container>
+        <ng-container *ngIf="col.editing">
+          <input  #headerInput
+            [(ngModel)]="col.header "
+           (blur)="saveHeader(i, $event)"
+            pInputText
+                  [disabled]="!isHeaderEditing"
+            (keydown.enter)="saveHeader(i, $event)"
+            (ngModelChange)="contentCell = $event"
+          />
+        </ng-container>
+      </th>
+      <th style="width:50px">
+        <span class="addClass" (click)="addColumn($event)" (click)="toggleOverlay($event, opAdd)">
+          <i class="pi pi-plus-circle" style="font-size: 2rem"></i>
+        </span>
+        <p-overlayPanel #opAdd>
+          <div class="flex flex-column gap-3 w-12rem" style="padding:20px">
+            <div class="ListTypeINput">
+              <a class="p-menuitem-link" *ngFor="let type of types; let i = index; trackBy: trackByIndex" (click)="openModal(type.code)">{{ type.name }}</a>
+            </div>
+          </div>
+        </p-overlayPanel>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+    <tr>
+      <td>{{i + 1}}</td>
+      <td *ngFor="let col of columns let i = index; trackBy: trackByIndex">
+        <ng-container *ngIf="!col.editing ">
+          {{ rowData[col.field] }}
+        </ng-container>
+        <ng-container *ngIf="col.editing">
+          <input
+            [(ngModel)]="rowData[col.field]"
+            (blur)="saveContent(i, col.field)"
+            pInputText
+            contenteditable="true"
+            [disabled]="isHeaderEditing"
+            [type]="col.type"
+            (keydown.enter)="saveContent(i, col.field)"
+            (ngModelChange)="contentCell = $event"
+           />
+        </ng-container>
+      </td>
+      <td></td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -1,0 +1,28 @@
+{{dataType}}
+
+<span *ngIf="dataType=='string'">
+<app-input-text></app-input-text>
+</span>
+<span *ngIf="dataType=='number'">
+  <app-number></app-number>
+</span>
+
+<span *ngIf="dataType=='currency'">
+  <app-price></app-price>
+</span>
+
+<span *ngIf="dataType=='percentage'">
+  <app-percentage></app-percentage>
+</span>
+
+<span *ngIf="dataType=='selected'">
+<app-selected></app-selected>
+</span>
+
+<span *ngIf="dataType=='file'">
+<app-file></app-file>
+</span>
+
+<span *ngIf="dataType=='date'">
+  <app-date></app-date>
+</span>
