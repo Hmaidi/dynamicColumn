@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { DataExcelSheetComponent } from './data-excel-sheet/data-excel-sheet.component';
 
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import { DropdownModule } from 'primeng/dropdown';
+import {ButtonModule} from "primeng/button";
  
 
 
@@ -13,35 +13,26 @@ import { DropdownModule } from 'primeng/dropdown';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet,DataExcelSheetComponent,
-    TranslateModule,DropdownModule],
+    TranslateModule,ButtonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-
   title = 'project';
-  currentLang:string='ar';
-  direction:string='rtl'
+  isRtl = true;
+
   constructor(public translate: TranslateService) {
     translate.addLangs(['ar', 'en']);
     translate.setDefaultLang('ar');
-    this.translate.onLangChange.subscribe(()=>{
-      if (this.currentLang == "ar") {
-        this.direction= "rtl";
-        document.documentElement.dir = "rtl";
-        document.documentElement.style.direction = "rtl";
-      }   
-      else {
-         
-        document.dir = "ltr";
-        
-        this.direction= "ltr";
-        document.documentElement.dir = "ltr";
-        document.documentElement.style.direction = "ltr";
-      }
-    })
-  
-     
 
+  }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
+
+    this.isRtl = !this.isRtl;
+    document.body.setAttribute('dir', this.isRtl ? 'rtl' : 'ltr');
+    document.documentElement.dir = this.isRtl ? 'rtl' : 'ltr';
+    document.documentElement.style.direction = this.isRtl ? 'rtl' : 'ltr';
   }
 }

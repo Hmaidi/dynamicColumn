@@ -1,16 +1,13 @@
-<div class="layout-wrapper"  dir={{direction}} >
+<div class="layout-wrapper"  >
 
 
   <div class="layout-main-container">
       <div class="layout-main  ">
-        <div class="conainerArray"> 
- 
-          <label>
-            {{ 'home.select' | translate }}
-            <select   style="margin: 0px 20px;" class="p-element p-dropdown-label p-inputtext p-placeholder " #langSelect (change)="translate.use(langSelect.value)">
-              <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
-            </select>
-          </label>
+        <div class="conainerArray" style="margin-bottom:20px">
+
+          <select #langSelect (change)="switchLang(langSelect.value)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+          </select>
         </div>
         <div class="conainerArray"> <app-data-excel-sheet></app-data-excel-sheet></div>
         <router-outlet></router-outlet>
