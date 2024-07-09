@@ -1,3 +1,3 @@
 export interface TableData {
-    [key: string]: any;
+  [key: string]: any;
 }

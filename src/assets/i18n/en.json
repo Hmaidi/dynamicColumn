@@ -1,9 +1,7 @@
 {
-  "ar":"arabic",
-   "en":"english",
-  "home": {
-       "select": "Select language"
-   }
-  
-  
+
+  "HOME": {
+
+    "TITLE": "title eeeeee"
   }
+}

@@ -9,7 +9,8 @@
             <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
           </select>
         </div>
-        <div class="conainerArray"> <app-data-excel-sheet></app-data-excel-sheet></div>
+        <!--<div class="conainerArray" style="margin-buttom:50px"> <app-data-excel-sheet></app-data-excel-sheet></div>-->
+        <div class="conainerArray"> <app-data-table></app-data-table></div>
         <router-outlet></router-outlet>
       </div>
 

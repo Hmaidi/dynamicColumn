@@ -10,15 +10,15 @@ import { MenuItem } from "primeng/api";
 import { DropdownModule } from "primeng/dropdown";
 import { Editor, NgxEditorModule } from "ngx-editor";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
- import { ColumNameComponent } from "../colum-name/colum-name.component";
+import { ColumNameComponent } from "../colum-name/colum-name.component";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import { TranslateService } from '@ngx-translate/core';
 import { Types } from '../models/Types.model';
-import { Column } from '../models/Types.model copy';
+import { Column } from '../models/Colum.model';
 import { TableData } from '../models/TableData.model';
 
-                                        
- 
+
+
 
 @Component({
   selector: 'app-data-excel-sheet',
@@ -33,13 +33,11 @@ export class DataExcelSheetComponent implements OnInit {
   formGroup: FormGroup | undefined;
   editor: Editor;
   contentCell:any;
-  contentCellContent:any
+
   types:Types[] | undefined;
-  rowData = [];
-  newColumnType: string = 'string';  
-  dataArray: any[] = []; 
+
   ref: DynamicDialogRef | undefined;
-  newColumnName: string = '';
+
   isHeaderEditing: boolean = false;
   items: MenuItem[] | undefined;
   sanitizedContentCell: SafeHtml = '';
@@ -83,16 +81,16 @@ export class DataExcelSheetComponent implements OnInit {
 
   addColumn(data: any) {
 
-      const newField = data.nameEn.toLowerCase().replace(/\s+/g, '');
-      this.columns.push({
-        id:data.id,
-        field: newField,
-        header: data.nameEn,
-        editing: false,
-        type: data.type
-      });
+    const newField = data?.nameEn?.toLowerCase().replace(/\s+/g, '');
+    this.columns.push({
+      id:data.id,
+      field: newField,
+      header: data.nameEn,
+      editing: false,
+      type: data.type
+    });
 
-      this.tableData.forEach((row) => (row[newField] = ''));
+    this.tableData.forEach((row) => (row[newField] = ''));
 
 
   }
@@ -102,7 +100,7 @@ export class DataExcelSheetComponent implements OnInit {
   }
 
   saveHeader(index: number,  event:any) {
-   this.columns[index].editing = false;
+    this.columns[index].editing = false;
     this.isHeaderEditing = false;
 
   }
@@ -113,7 +111,7 @@ export class DataExcelSheetComponent implements OnInit {
       rowToUpdate[field] = this.contentCell;
 
     }
-    this.columns[index].editing = false;
+
 
   }
 
@@ -174,4 +172,5 @@ export class DataExcelSheetComponent implements OnInit {
   updateHeaderFromContentCell($event: any) {
 
   }
+
 }

@@ -1,6 +1,6 @@
 <div class="NgxEditor__Wrapper">
   <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
-  <ngx-editor [editor]="editor" [ngModel]="contentCell"
+  <ngx-editor [editor]="editor" [(ngModel)]="contentCell"
               (ngModelChange)="updateHeaderFromContentCell($event)"
               [disabled]="false" [placeholder]="'Type here...'"></ngx-editor>
 </div>
@@ -26,17 +26,17 @@
         </ng-container>
         <ng-container *ngIf="col.editing">
           <input  #headerInput
-            [(ngModel)]="col.header "
-           (blur)="saveHeader(i, $event)"
-            pInputText
+                  [(ngModel)]="col.header "
+                  (blur)="saveHeader(i, $event)"
+                  pInputText
                   [disabled]="!isHeaderEditing"
-            (keydown.enter)="saveHeader(i, $event)"
-            (ngModelChange)="contentCell = $event"
+                  (keydown.enter)="saveHeader(i, $event)"
+                  (ngModelChange)="contentCell = $event"
           />
         </ng-container>
       </th>
       <th style="width:50px">
-        <span class="addClass" (click)="addColumn($event)" (click)="toggleOverlay($event, opAdd)">
+        <span class="addClass"  (click)="toggleOverlay($event, opAdd)">
           <i class="pi pi-plus-circle" style="font-size: 2rem"></i>
         </span>
         <p-overlayPanel #opAdd>
@@ -66,7 +66,7 @@
             [type]="col.type"
             (keydown.enter)="saveContent(i, col.field)"
             (ngModelChange)="contentCell = $event"
-           />
+          />
         </ng-container>
       </td>
       <td></td>

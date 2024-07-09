@@ -5,7 +5,9 @@ import { DataExcelSheetComponent } from './data-excel-sheet/data-excel-sheet.com
 
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ButtonModule} from "primeng/button";
- 
+import {MenuModule} from "primeng/menu";
+import {MenuItem} from "primeng/api";
+import {DataTableComponent} from "./data-table/data-table.component";
 
 
 
@@ -13,11 +15,12 @@ import {ButtonModule} from "primeng/button";
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet,DataExcelSheetComponent,
-    TranslateModule,ButtonModule],
+    TranslateModule,ButtonModule,MenuModule,DataTableComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+
   title = 'project';
   isRtl = true;
 
